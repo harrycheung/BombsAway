@@ -4,32 +4,47 @@ using UnityEngine;
 
 public class CloudGenerator : MonoBehaviour
 {
+    public static CloudGenerator instance;
 
-    public Rigidbody2D cloud;
-    public float cloudFrequency = 0.005f;
+    public GameObject cloud;
+    public float cloudFrequency = 0.25f;
     public float cloudRegion = 0.65f;
+    public int targetNumOfClouds = 6;
+    public int numOfClouds = 0;
 
-    private float halfCloudWidth = 0f;
-    private float cameraWidth = 0f;
-    private float cameraHeight = 0f;
+    private float startX = 0f;
+    private float topY = 0f;
+    private float bottomY = 0f;
+    private float lastCloudSpawn = 0f;
+
+	void Awake()
+	{
+        instance = this;
+	}
 
 	void Start()
     {
-        halfCloudWidth = (cloud.GetComponent<Renderer>().bounds.size.x * GameController.instance.PixelRatio()) / 2;
-        cameraWidth = Camera.main.pixelWidth;
-        cameraHeight = Camera.main.pixelHeight;
+        startX = Camera.main.pixelWidth +
+                       (cloud.GetComponent<Renderer>().bounds.size.x * GameController.instance.PixelRatio()) / 2;
+        topY = Camera.main.pixelHeight;
+        bottomY = (1 - cloudRegion) * topY;
 	}
 
 	void Update()
-    {
-        if (Random.value < cloudFrequency)
+    {        
+        if (numOfClouds < targetNumOfClouds && Random.value < Mathf.Pow(100000, cloudFrequency * lastCloudSpawn - 1))
         {
-            float x = cameraWidth + halfCloudWidth;
-            float y = Random.value * cloudRegion * cameraHeight + (1 - cloudRegion) * cameraHeight;
-            // ScreenToWorldPoint set Z to the camera's Z, which hides the cloud.
-            // We pull out the x and y values in this hacky way to solve this.
-            Vector3 position = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 0));
-            Instantiate(cloud, new Vector3(position.x, position.y, 0), Quaternion.identity);
+            Debug.Log(lastCloudSpawn);
+            //Debug.Log(cloudFrequency * lastCloudSpawn - 1);
+            //Debug.Log(Mathf.Pow(1000, cloudFrequency * lastCloudSpawn - 1));
+            Vector3 position = Camera.main.ScreenToWorldPoint(new Vector3(startX, Random.Range(bottomY, topY), 0));
+            Instantiate(cloud, new Vector2(position.x, position.y), Quaternion.identity);
+            lastCloudSpawn = 0;
+            numOfClouds++;
+        }
+        else
+        {
+            lastCloudSpawn += Time.deltaTime;
         }
     }
 

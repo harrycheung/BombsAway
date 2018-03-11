@@ -18,6 +18,7 @@ public class Cloud : MonoBehaviour
         if (position.x + halfCloudWidth < 0)
         {
             Destroy(gameObject);
+            CloudGenerator.instance.numOfClouds--;
         }
 	}
 

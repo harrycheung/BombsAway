@@ -5,7 +5,7 @@ using UnityEngine;
 public class BombBay : MonoBehaviour
 {
 
-    public Rigidbody2D bomb;
+    public GameObject bomb;
 
     private float nextDrop = 0f;
 
