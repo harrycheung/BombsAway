@@ -8,10 +8,10 @@ public class CloudGenerator : MonoBehaviour
     public static CloudGenerator instance;
 
     public GameObject cloud;
-    public float cloudFrequency = 0.25f;
-    public float cloudRegion = 0.65f;
-    public int targetNumOfClouds = 6;
-    public int numOfClouds = 0;
+    public float cloudFrequency;
+    public float cloudRegion;
+    public int targetNumOfClouds;
+    public int numOfClouds;
 
     private float startX = 0f;
     private float topY = 0f;

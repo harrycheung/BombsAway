@@ -7,7 +7,7 @@ public class ScrollingObject : MonoBehaviour
 
     private Rigidbody2D rb2d;
 
-    public float scrollSpeed = -1.5f;
+    public float scrollSpeed;
 
 	// Use this for initialization
 	void Start()

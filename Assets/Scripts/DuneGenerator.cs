@@ -8,9 +8,9 @@ public class DuneGenerator : MonoBehaviour
     public static DuneGenerator instance;
 
     public GameObject[] dunes;
-    public float duneFrequency = 0.2f;
-    public int targetNumOfDunes = 3;
-    public int numOfDunes = 0;
+    public float duneFrequency;
+    public int targetNumOfDunes;
+    public int numOfDunes;
 
     private Vector2 startPosition;
     private float lastDuneSpawn = 0f;

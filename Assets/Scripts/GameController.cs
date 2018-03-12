@@ -6,8 +6,8 @@ public class GameController : MonoBehaviour
 {
 
     public static GameController instance;
-    public bool gameOver = false;
-    public float dropRate = 1f;
+    public bool gameOver;
+    public float dropRate;
 
 	void Awake()
     {
