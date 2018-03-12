@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CloudGenerator : MonoBehaviour
 {
+    
     public static CloudGenerator instance;
 
     public GameObject cloud;
@@ -34,9 +35,6 @@ public class CloudGenerator : MonoBehaviour
     {        
         if (numOfClouds < targetNumOfClouds && Random.value < Mathf.Pow(100000, cloudFrequency * lastCloudSpawn - 1))
         {
-            Debug.Log(lastCloudSpawn);
-            //Debug.Log(cloudFrequency * lastCloudSpawn - 1);
-            //Debug.Log(Mathf.Pow(1000, cloudFrequency * lastCloudSpawn - 1));
             Vector3 position = Camera.main.ScreenToWorldPoint(new Vector3(startX, Random.Range(bottomY, topY), 0));
             Instantiate(cloud, new Vector2(position.x, position.y), Quaternion.identity);
             lastCloudSpawn = 0;
