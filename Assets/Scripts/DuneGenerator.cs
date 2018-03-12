@@ -8,13 +8,13 @@ public class DuneGenerator : MonoBehaviour
     public static DuneGenerator instance;
 
     public GameObject[] dunes;
+    public string duneTag;
     public float duneFrequency;
     public int targetNumOfDunes;
-    public int numOfDunes;
+    public int groundHeight;
 
     private Vector2 startPosition;
     private float lastDuneSpawn = 0f;
-    private int groundHeight = 12; // in pixels
 
     void Awake()
     {
@@ -29,16 +29,14 @@ public class DuneGenerator : MonoBehaviour
         float startY = groundHeight * pixelRatio + (duneSize.y * pixelRatio) / 2;
         Vector3 position = Camera.main.ScreenToWorldPoint(new Vector3(startX, startY, 0));
         startPosition = new Vector2(position.x, position.y);
-        Debug.Log(startPosition);
     }
 
     void Update()
     {
-        if (numOfDunes < targetNumOfDunes && Random.value < Mathf.Pow(100000, duneFrequency * lastDuneSpawn - 1))
+        if (GameObject.FindGameObjectsWithTag(duneTag).Length < targetNumOfDunes && Random.value < Mathf.Pow(100000, duneFrequency * lastDuneSpawn - 1))
         {
             Instantiate(dunes[Random.Range(0, dunes.Length)], startPosition, Quaternion.identity);
             lastDuneSpawn = 0;
-            numOfDunes++;
         }
         else
         {

@@ -18,7 +18,6 @@ public class Dune : MonoBehaviour
         if (position.x + halfDuneWidth < 0)
         {
             Destroy(gameObject);
-            DuneGenerator.instance.numOfDunes--;
         }
     }
 
