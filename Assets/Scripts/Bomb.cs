@@ -6,8 +6,8 @@ public class Bomb : MonoBehaviour
 {
 
     public GameObject explosion;
-    public GameObject turret;
-    public float turretOffset;
+    public GameObject staticTank;
+    public float tankOffset;
 
 	void Update()
     {
@@ -29,20 +29,28 @@ public class Bomb : MonoBehaviour
 
             if (!destroyable.destroyed)
             {
-                float explosionDistance = collision.contacts[0].point.x - tank.transform.position.x;
-
                 Vector2 explosionPosition = new Vector2(collision.contacts[0].point.x,
                                                         tank.transform.position.y);
                 Instantiate(explosion, explosionPosition, Quaternion.identity);
 
-                Vector2 turretPosition = new Vector2(tank.transform.position.x,
-                                                     tank.transform.position.y + turretOffset);
-                GameObject newTurret = Instantiate(turret, turretPosition, Quaternion.identity);
+                 
+                GameObject newTank = Instantiate(staticTank, 
+                                                 new Vector2(tank.transform.position.x, 
+                                                             tank.transform.position.y + tankOffset), 
+                                                 Quaternion.identity);
+                foreach (Transform child in newTank.transform)
+                {
+                    float explosionDistance = collision.contacts[0].point.x - child.position.x;
 
-                Rigidbody2D rb2d = newTurret.GetComponent<Rigidbody2D>();
-                rb2d.velocity = tank.GetComponent<Rigidbody2D>().velocity;
-                rb2d.AddForce(new Vector2(-explosionDistance / 4, 17 - Mathf.Abs(explosionDistance)), ForceMode2D.Impulse);
-                rb2d.AddTorque(10 * explosionDistance, ForceMode2D.Impulse);
+                    Rigidbody2D rb2d = child.gameObject.GetComponent<Rigidbody2D>();
+                    rb2d.velocity = tank.GetComponent<Rigidbody2D>().velocity;
+                    rb2d.AddForce(new Vector2(-explosionDistance / 4, 
+                                              25 - Mathf.Abs(explosionDistance)), 
+                                  ForceMode2D.Impulse);
+                    rb2d.AddTorque((explosionDistance < 0 ? -20 : 20) *
+                                   Mathf.Pow(0.9f, Mathf.Round(Mathf.Abs(explosionDistance / 5))),
+                                   ForceMode2D.Impulse);
+                }
 
                 Destroy(gameObject);
                 Destroy(tank);

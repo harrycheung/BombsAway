@@ -11,6 +11,7 @@ public class Generator : MonoBehaviour
     public int targetNum;
     public float top;
     public float bottom;
+    public float width;
 
     private float startX;
     private float topY;
@@ -21,10 +22,10 @@ public class Generator : MonoBehaviour
 
     void Start()
     {
-        startX = Camera.main.aspect * Camera.main.orthographicSize;
+        startX = Camera.main.aspect * Camera.main.orthographicSize + width;
         if (Mathf.Approximately(top, bottom))
         {
-            startPosition = new Vector2(startX, -Camera.main.orthographicSize + bottom);
+            startPosition = new Vector2(startX + width, -Camera.main.orthographicSize + bottom);
             usePosition = true;
         }
         else
