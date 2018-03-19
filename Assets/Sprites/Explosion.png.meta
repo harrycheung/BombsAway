@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 6da5a2c6ca3814889be749d94769d857
-timeCreated: 1521081805
+timeCreated: 1521430996
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,7 @@ TextureImporter:
     21300010: Explosion_5
     21300012: Explosion_6
     21300014: Explosion_7
+    21300016: Explosion_8
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -197,6 +198,19 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 24
+        y: 0
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Explosion_8
+      rect:
+        serializedVersion: 2
+        x: 48
         y: 0
         width: 24
         height: 24
